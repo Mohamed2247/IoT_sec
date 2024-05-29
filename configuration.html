@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Configuration</title>
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+
+    <!--box icon link -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- bootstrap link -->
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+  <link rel="website icon" href="/assest/IMAGES/svg.jpg">
+
+    <!-- css link  -->
+    <link rel="stylesheet" href="/assest/CSS/configuration.css" />
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+    <script>
+      // Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyCGDh-jl_TS8sJfvMrDiiQUCzEZ_oQhakk",
+        authDomain: "graduationproject-9d950.firebaseapp.com",
+        projectId: "graduationproject-9d950",
+        storageBucket: "graduationproject-9d950.appspot.com",
+        messagingSenderId: "26134517279",
+        appId: "1:26134517279:web:3d55390e48d149a9a6e72a",
+        measurementId: "G-YQVVWVMFZZ",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+    </script>
+    <script src="/assest/Scripts/encryption.js" defer></script>
+    <script src="/assest/Scripts/script.js" defer></script>
+  </head>
+
+  <body>
+    <nav class="sidebar close">
+      <header>
+        <div class="image-text">
+          <span class="image">
+            <img src="./assest/IMAGES/logo.jpg" alt="logo" />
+          </span>
+
+          <div class="text header-text">
+            <span class="name">Admin</span>
+            <span class="profession">IOT Sec</span>
+          </div>
+        </div>
+
+        <i class="bx bx-chevron-right toggle"></i>
+      </header>
+
+      <div class="menu-bar">
+        <div class="menu">
+          <ul class="menu-links">
+            <li class="nav-link">
+              <a href="#">
+                <i class="bx bx-home icon"></i>
+                <span class="text nav-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-link">
+              <a href="#">
+                <i class="bx bxs-devices icon"></i>
+                <span class="text nav-text">Devices</span>
+              </a>
+            </li>
+            <li class="nav-link">
+              <a href="#">
+                <i class="bx bx-user-circle icon"></i>
+                <span class="text nav-text">Users</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="bottom-content">
+          <li>
+            <a href="#" onclick="logout()">
+              <i class="bx bx-log-out icon"></i>
+              <span class="text nav-text">Logout</span>
+            </a>
+          </li>
+
+          <li class="mode">
+            <div class="moon-sun">
+              <i class="bx bx-moon icon moon"></i>
+              <i class="bx bx-sun icon sun"></i>
+            </div>
+            <span class="mode-text text">Dark Mode</span>
+            <div class="toggle-switch">
+              <span class="switch"></span>
+            </div>
+          </li>
+        </div>
+      </div>
+    </nav>
+
+    
+    <div class="container mt-5" id="mainContent">
+      <div class="text-center">
+        <h1 class="display-5 mb-5"><strong>Create User</strong></h1>
+      </div>
+      <div class="main row justify-content-center">
+        <form
+          id="userDeviceForm"
+          class="row justify-content-center mb-4"
+          autocomplete="off"
+        >
+          <input type="hidden" id="editingUsername" value="" />
+          <div class="form-group col-12 col-md-8 mb-3">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              class="form-control"
+              id="username"
+              placeholder="Enter your Name..."
+              autocomplete="username"
+              required
+            />
+          </div>
+          <div class="form-group col-12 col-md-8 mb-3">
+            <label for="password">Password:</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              placeholder="Enter your Password..."
+              oninput="validatePasswordLength(this)"
+              required
+            />
+          </div>
+          <div class="form-group col-12 col-md-8 mb-3">
+            <h6>Devices:</h6>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="led" />
+              <label class="form-check-label" for="led">LED</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="lcd" />
+              <label class="form-check-label" for="lcd">LCD</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="fan" />
+              <label class="form-check-label" for="fan">Fan</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gas_sensor" />
+              <label class="form-check-label" for="gas_sensor">Gas Sensor</label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-success col-12 col-md-8"
+            id="submitButton"
+          >
+            Add
+          </button>
+        </form>
+        <table class="table table-bordered" id="userDataDisplay">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Password</th>
+              <th>Devices</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+     
+      
+
+      document
+        .getElementById("userDeviceForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const username = document.getElementById("username").value.trim();
+          const plainPassword = document.getElementById("password").value;
+          const editingUsername =
+            document.getElementById("editingUsername").value;
+
+          if (!username || !plainPassword) {
+            alert("Please fill out username and password.");
+            return;
+          }
+
+          const encryptedPassword = window.encryptPassword(plainPassword);
+
+          const devices = {
+            led: document.getElementById("led").checked,
+            lcd: document.getElementById("lcd").checked,
+            fan: document.getElementById("fan").checked,
+            gas_sensor: document.getElementById("gas_sensor").checked,
+          };
+
+          if (
+            !devices.led &&
+            !devices.lcd &&
+            !devices.fan &&
+            !devices.gas_sensor
+          ) {
+            alert("Please select at least one device.");
+            return;
+          }
+
+          const userData = {
+            username: username,
+            plainPassword: plainPassword,
+            devices: devices,
+          };
+
+          const userRef = firebase.database().ref("users/" + username);
+
+          userRef
+            .once("value", (snapshot) => {
+              if (snapshot.exists() && !editingUsername) {
+                alert(
+                  "Username already exists. Please choose a different username."
+                );
+              } else {
+                processUser(
+                  userRef,
+                  userData,
+                  encryptedPassword,
+                  editingUsername
+                );
+                resetForm();
+              }
+            })
+            .catch((error) => {
+              console.error("Error querying database for username:", error);
+              alert(
+                "An error occurred while checking the username availability."
+              );
+            });
+        });
+      function validatePasswordLength(passwordInput) {
+        const password = passwordInput.value;
+        if (password.length < 6 || password.length > 16) {
+          passwordInput.setCustomValidity(
+            "Password must be between 6 and 16 characters."
+          );
+        } else {
+          passwordInput.setCustomValidity("");
+        }
+      }
+      function processUser(
+        userRef,
+        userData,
+        encryptedPassword,
+        editingUsername
+      ) {
+        const userDataToStore = {
+          username: userData.username,
+          password: encryptedPassword,
+          devices: userData.devices,
+        };
+
+        if (editingUsername) {
+          userRef.update(userDataToStore, (error) => {
+            if (error) {
+              alert("Error updating user: " + error.message);
+            } else {
+              alert("User updated successfully!");
+              localStorage.setItem(userData.username, userData.plainPassword);
+              updateRowInTable(userData);
+              resetForm();
+              location.reload();
+            }
+          });
+        } else {
+          userRef.set(userDataToStore, (error) => {
+            if (error) {
+              alert("Error creating user: " + error.message);
+            } else {
+              alert("User created successfully!");
+              localStorage.setItem(userData.username, userData.plainPassword);
+              addRowToTable(userData);
+              resetForm();
+            }
+          });
+        }
+      }
+
+      function updateRowInTable(userData) {
+        const table = document
+          .getElementById("userDataDisplay")
+          .getElementsByTagName("tbody")[0];
+        const rows = table.getElementsByTagName("tr");
+        for (const element of rows) {
+          const rowUsername = element.cells[0].textContent;
+          if (rowUsername === userData.username) {
+            element.cells[1].textContent = userData.plainPassword;
+            element.cells[2].textContent = Object.keys(userData.devices)
+              .filter((device) => userData.devices[device])
+              .join(", ");
+            break;
+          }
+        }
+      }
+
+      function addRowToTable(userData) {
+        const table = document
+          .getElementById("userDataDisplay")
+          .getElementsByTagName("tbody")[0];
+        const newRow = table.insertRow();
+        newRow.innerHTML = `
+        <td>${userData.username}</td>
+        <td>${userData.plainPassword}</td> <!-- Display the plain password -->
+        <td>${Object.keys(userData.devices)
+          .filter((device) => userData.devices[device])
+          .join(", ")}</td>
+        <td>
+          <button class="btn btn-warning" onclick="editUser('${
+            userData.username
+          }')">Edit</button>
+          <button class="btn btn-danger" onclick="deleteUser('${
+            userData.username
+          }', this.parentNode.parentNode)">Delete</button>
+        </td>
+      `;
+      }
+
+      function editUser(username) {
+        const userRef = firebase.database().ref("users/" + username);
+        userRef.once("value").then((snapshot) => {
+          const userData = snapshot.val();
+
+          const plainPassword = localStorage.getItem(username) || "";
+
+          document.getElementById("username").value = userData.username;
+          document.getElementById("password").value = plainPassword;
+          document.getElementById("led").checked = userData.devices.led;
+          document.getElementById("lcd").checked = userData.devices.lcd;
+          document.getElementById("fan").checked = userData.devices.fan;
+          document.getElementById("gas_sensor").checked =
+            userData.devices.gas_sensor;
+          document.getElementById("editingUsername").value = userData.username;
+          document.getElementById("username").disabled = true;
+          const submitButton = document.getElementById("submitButton");
+          submitButton.textContent = "Update";
+          submitButton.classList.remove("btn-success");
+          submitButton.classList.add("btn-primary");
+        });
+      }
+
+      function deleteUser(username, row) {
+        if (confirm("Are you sure you want to delete this user?")) {
+          firebase
+            .database()
+            .ref("users/" + username)
+            .remove()
+            .then(() => {
+              row.remove();
+              alert("User deleted successfully");
+            })
+            .catch((error) => {
+              alert("Failed to delete user: " + error.message);
+            });
+        }
+      }
+
+      function resetForm() {
+        document.getElementById("userDeviceForm").reset();
+        document.getElementById("editingUsername").value = "";
+        document.getElementById("username").disabled = false;
+        const submitButton = document.getElementById("submitButton");
+        submitButton.textContent = "Add";
+        submitButton.classList.remove("btn-primary");
+        submitButton.classList.add("btn-success");
+      }
+
+      window.onload = function () {
+        const usersRef = firebase.database().ref("users");
+        usersRef.once("value", (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const userData = childSnapshot.val();
+            userData.plainPassword =
+              localStorage.getItem(userData.username) || "";
+            addRowToTable(userData);
+          });
+        });
+      };
+    </script>
+  </body>
+</html>
