@@ -3,37 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>Configuration</title>
-    <meta
-      http-equiv="Cache-Control"
-      content="no-cache, no-store, must-revalidate"
-    />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-
     <!--box icon link -->
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
     <!-- bootstrap link -->
-    <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-    crossorigin="anonymous"
-  />
-  <link rel="website icon" href="assest/IMAGES/1.svg">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <link rel="website icon" href="assest/IMAGES/1.svg">
     <!-- css link  -->
     <link rel="stylesheet" href="assest/CSS/configuration.css" />
-
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
-
     <script>
       // Firebase configuration
       var firebaseConfig = {
@@ -51,7 +34,6 @@
     <script src="assest/Scripts/encryption.js" defer></script>
     <script src="assest/Scripts/script.js" defer></script>
   </head>
-
   <body>
     <nav class="sidebar close">
       <header>
@@ -59,16 +41,13 @@
           <span class="image">
             <img src="assest/IMAGES/logo.jpg" alt="logo" />
           </span>
-
           <div class="text header-text">
             <span class="name">Admin</span>
             <span class="profession">IOT Sec</span>
           </div>
         </div>
-
         <i class="bx bx-chevron-right toggle"></i>
       </header>
-
       <div class="menu-bar">
         <div class="menu">
           <ul class="menu-links">
@@ -99,7 +78,6 @@
               <span class="text nav-text">Logout</span>
             </a>
           </li>
-
           <li class="mode">
             <div class="moon-sun">
               <i class="bx bx-moon icon moon"></i>
@@ -113,40 +91,20 @@
         </div>
       </div>
     </nav>
-
-    
     <div class="container mt-5" id="mainContent">
       <div class="text-center">
         <h1 class="display-5 mb-5"><strong>Create User</strong></h1>
       </div>
       <div class="main row justify-content-center">
-        <form
-          id="userDeviceForm"
-          class="row justify-content-center mb-4"
-          autocomplete="off"
-        >
+        <form id="userDeviceForm" class="row justify-content-center mb-4" autocomplete="off">
           <input type="hidden" id="editingUsername" value="" />
           <div class="form-group col-12 col-md-8 mb-3">
             <label for="username">Username:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="username"
-              placeholder="Enter your Name..."
-              autocomplete="username"
-              required
-            />
+            <input type="text" class="form-control" id="username" placeholder="Enter your Name..." autocomplete="username" required />
           </div>
           <div class="form-group col-12 col-md-8 mb-3">
             <label for="password">Password:</label>
-            <input
-              type="password"
-              class="form-control"
-              id="password"
-              placeholder="Enter your Password..."
-              oninput="validatePasswordLength(this)"
-              required
-            />
+            <input type="password" class="form-control" id="password" placeholder="Enter your Password..." oninput="validatePasswordLength(this)" required />
           </div>
           <div class="form-group col-12 col-md-8 mb-3">
             <h6>Devices:</h6>
@@ -167,12 +125,8 @@
               <label class="form-check-label" for="gas_sensor">Gas Sensor</label>
             </div>
           </div>
-          <button
-            type="submit"
-            class="btn btn-success col-12 col-md-8"
-            id="submitButton"
-          >
-            Add
+          <button type="submit" class="btn btn-success col-12 col-md-8" id="submitButton">
+                Add
           </button>
         </form>
         <table class="table table-bordered" id="userDataDisplay">
@@ -188,35 +142,23 @@
         </table>
       </div>
     </div>
-
     <script>
-     
-      
-
-      document
-        .getElementById("userDeviceForm")
-        .addEventListener("submit", function (e) {
+      document.getElementById("userDeviceForm").addEventListener("submit", function (e) {
           e.preventDefault();
-
           const username = document.getElementById("username").value.trim();
           const plainPassword = document.getElementById("password").value;
-          const editingUsername =
-            document.getElementById("editingUsername").value;
-
+          const editingUsername = document.getElementById("editingUsername").value;
           if (!username || !plainPassword) {
             alert("Please fill out username and password.");
             return;
           }
-
           const encryptedPassword = window.encryptPassword(plainPassword);
-
           const devices = {
             led: document.getElementById("led").checked,
             lcd: document.getElementById("lcd").checked,
             fan: document.getElementById("fan").checked,
             gas_sensor: document.getElementById("gas_sensor").checked,
           };
-
           if (
             !devices.led &&
             !devices.lcd &&
@@ -226,17 +168,13 @@
             alert("Please select at least one device.");
             return;
           }
-
           const userData = {
             username: username,
             plainPassword: plainPassword,
             devices: devices,
           };
-
           const userRef = firebase.database().ref("users/" + username);
-
-          userRef
-            .once("value", (snapshot) => {
+          userRef.once("value", (snapshot) => {
               if (snapshot.exists() && !editingUsername) {
                 alert(
                   "Username already exists. Please choose a different username."
@@ -261,9 +199,7 @@
       function validatePasswordLength(passwordInput) {
         const password = passwordInput.value;
         if (password.length < 6 || password.length > 16) {
-          passwordInput.setCustomValidity(
-            "Password must be between 6 and 16 characters."
-          );
+          passwordInput.setCustomValidity( "Password must be between 6 and 16 characters." );
         } else {
           passwordInput.setCustomValidity("");
         }
@@ -279,7 +215,6 @@
           password: encryptedPassword,
           devices: userData.devices,
         };
-
         if (editingUsername) {
           userRef.update(userDataToStore, (error) => {
             if (error) {
@@ -305,35 +240,26 @@
           });
         }
       }
-
       function updateRowInTable(userData) {
-        const table = document
-          .getElementById("userDataDisplay")
-          .getElementsByTagName("tbody")[0];
+        const table = document.getElementById("userDataDisplay").getElementsByTagName("tbody")[0];
         const rows = table.getElementsByTagName("tr");
         for (const element of rows) {
           const rowUsername = element.cells[0].textContent;
           if (rowUsername === userData.username) {
             element.cells[1].textContent = userData.plainPassword;
-            element.cells[2].textContent = Object.keys(userData.devices)
-              .filter((device) => userData.devices[device])
-              .join(", ");
+            element.cells[2].textContent = Object.keys(userData.devices).filter((device) => userData.devices[device]).join(", ");
             break;
           }
         }
       }
 
       function addRowToTable(userData) {
-        const table = document
-          .getElementById("userDataDisplay")
-          .getElementsByTagName("tbody")[0];
+        const table = document.getElementById("userDataDisplay").getElementsByTagName("tbody")[0];
         const newRow = table.insertRow();
         newRow.innerHTML = `
         <td>${userData.username}</td>
         <td>${userData.plainPassword}</td> <!-- Display the plain password -->
-        <td>${Object.keys(userData.devices)
-          .filter((device) => userData.devices[device])
-          .join(", ")}</td>
+        <td>${Object.keys(userData.devices).filter((device) => userData.devices[device]).join(", ")}</td>
         <td>
           <button class="btn btn-warning" onclick="editUser('${
             userData.username
@@ -349,16 +275,13 @@
         const userRef = firebase.database().ref("users/" + username);
         userRef.once("value").then((snapshot) => {
           const userData = snapshot.val();
-
           const plainPassword = localStorage.getItem(username) || "";
-
           document.getElementById("username").value = userData.username;
           document.getElementById("password").value = plainPassword;
           document.getElementById("led").checked = userData.devices.led;
           document.getElementById("lcd").checked = userData.devices.lcd;
           document.getElementById("fan").checked = userData.devices.fan;
-          document.getElementById("gas_sensor").checked =
-            userData.devices.gas_sensor;
+          document.getElementById("gas_sensor").checked = userData.devices.gas_sensor;
           document.getElementById("editingUsername").value = userData.username;
           document.getElementById("username").disabled = true;
           const submitButton = document.getElementById("submitButton");
@@ -367,14 +290,9 @@
           submitButton.classList.add("btn-primary");
         });
       }
-
       function deleteUser(username, row) {
         if (confirm("Are you sure you want to delete this user?")) {
-          firebase
-            .database()
-            .ref("users/" + username)
-            .remove()
-            .then(() => {
+          firebase.database().ref("users/" + username).remove().then(() => {
               row.remove();
               alert("User deleted successfully");
             })
@@ -383,7 +301,6 @@
             });
         }
       }
-
       function resetForm() {
         document.getElementById("userDeviceForm").reset();
         document.getElementById("editingUsername").value = "";
@@ -393,7 +310,6 @@
         submitButton.classList.remove("btn-primary");
         submitButton.classList.add("btn-success");
       }
-
       window.onload = function () {
         const usersRef = firebase.database().ref("users");
         usersRef.once("value", (snapshot) => {
